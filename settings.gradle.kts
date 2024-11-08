@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidVideoEncoder"
 include(":app")
- 
+include(":image-encoder-cli")
