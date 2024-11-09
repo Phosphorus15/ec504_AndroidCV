@@ -1,3 +1,3 @@
 [submodule "app/src/main/cpp/ec504_ImageEncoder"]
 	path = app/src/main/cpp/ec504_ImageEncoder
-	url = git@github.com:eburhansjah/ec504_ImageEncoder.git
+	url = https://github.com/eburhansjah/ec504_ImageEncoder.git

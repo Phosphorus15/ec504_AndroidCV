@@ -1,6 +1,8 @@
 #include <jni.h>
 #include <stdlib.h>
 #include <string>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 #include "image_processing.h"
 #include "jpeg_handler.h"
 
@@ -46,3 +48,5 @@ Java_com_example_androidvideoencoder_encoder_CEncoderInterface_fromImageHandler(
                                   reinterpret_cast<void *>(image->channels),
                                   image->width * image->height * image->channels));
 }
+
+
