@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.androidvideoencoder.encoder.CEncoderInterface;
+
 public class SplashActivity extends AppCompatActivity {
 
     private Button nextButton;
@@ -22,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         // Initialize views
         nextButton = findViewById(R.id.next_button);
+        nextButton.setText(new CEncoderInterface().stringFromJNI());
         splashLogo = findViewById(R.id.splash_logo);
 
         // Load and start fade-in animation
