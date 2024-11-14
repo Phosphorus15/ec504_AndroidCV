@@ -5,6 +5,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -12,7 +13,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+rootProject.name = "ec504_AndroidCV"
 
-rootProject.name = "AndroidVideoEncoder"
-include(":app")
-include(":image-encoder-cli")
+// Include all existing and new modules
+include("app")
+include("image-encoder-cli")
+include("image-encoder-core")
