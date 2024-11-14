@@ -65,33 +65,98 @@ ec504_AndroidCV/
 - JDK 8+
 - Latest Android Studio
 - Android NDK Installed
-- Gradle 8.9
+- Gradle 8.5
 - Git
 
 ## Installation
 
+Clone the repository:
 ```bash
 git clone https://github.com/yourusername/ec504_AndroidCV.git
 cd ec504_AndroidCV
 ```
 
-## Building the Project
+## Setting Up the Gradle Wrapper
 
-**Android Application**
-1. Open project in Android Studio
-2. Sync Gradle files
-3. Build project (Ctrl + F9)
-4. Run on device/emulator
-
-**CLI Tool**
+From terminal run:
 ```bash
-# Linux/Mac
-./gradlew :image-encoder-cli:shadowJar --rerun-tasks --info
-
-# Windows
-gradlew.bat :image-encoder-cli:shadowJar --rerun-tasks --info
-
-# Run CLI
-java -jar image-encoder-cli/build/libs/image-encoder-cli-1.0.0.jar --help
+gradle wrapper --gradle-version 8.5 --distribution-type all
 ```
 
+## Building the Project
+
+### Android Application
+
+1. **Open in Android Studio**:
+   Launch Android Studio and open the `ec504_AndroidCV` project.
+
+2. **Sync Gradle**:
+   Click on **File > Sync Project with Gradle Files** to resolve dependencies.
+
+3. **Build the Project**:
+   Navigate to **Build > Build Project**. 
+
+4. **Run the App**:
+   Start an emulator, then click the Run button (This launches the app and shows two interfaces (Splash activity and Main activity)
+ 
+
+### CLI Tool
+From Terminal 
+1. **Navigate to the Project Root**:
+   ```bash
+   cd ec504_AndroidCV
+   ```
+
+2. **Build the CLI Module**:
+   - On Linux/Mac:
+     ```bash
+     ./gradlew :image-encoder-cli:shadowJar --rerun-tasks --info
+     ```
+   - On Windows:
+     ```cmd
+     gradlew.bat :image-encoder-cli:shadowJar --rerun-tasks --info
+     ```
+
+3. **Locate the Generated JAR**:
+   After the build, the fat JAR will be located at:
+   ```
+   image-encoder-cli/build/libs/image-encoder-cli-1.0.0.jar
+   ```
+4. 
+  **Note: this is just a demo jar file and core encoding logic is not yet integrated, So you can only run the command below to confirm jar file works.**
+**To see help information**:
+   ```
+   java -jar image-encoder-cli-1.0.0.jar --help
+   ```
+   Intended usage of commandline below at the end of the project.
+## CLI Tool Usage
+
+1. **Ensure Java is Installed**:
+   Verify Java installation with:
+   ```bash
+   java -version
+   ```
+
+2. **Run the JAR File**:
+   Navigate to the directory containing the JAR file:
+   ```bash
+   cd ec504_AndroidCV/image-encoder-cli/build/libs/
+   ```
+
+3. **Execute the JAR with Required Arguments**: 
+   ```bash
+   java -jar image-encoder-cli-1.0.0.jar --input /path/to/input/images --output /path/to/output/video.mpeg1 --format mpeg1 --quality 80
+   ```
+
+   ### Parameters:
+   - `--input` or `-i`: Path to the directory containing input JPEG images.
+   - `--output` or `-o`: Desired output file path for the encoded video.
+   - `--format` or `-f`: Video format (e.g., mpeg1, mpeg2, h264, hevc).
+   - `--quality` or `-q`: Encoding quality (1-100).
+
+   ### Example:
+   ```bash
+   java -jar image-encoder-cli-1.0.0.jar --input ./images --output ./videos/output_video.mpeg1 --format mpeg1 --quality 80
+   ```
+
+--- 
