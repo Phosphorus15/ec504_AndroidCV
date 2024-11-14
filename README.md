@@ -64,6 +64,7 @@ ec504_AndroidCV/
 
 - JDK 8+
 - Latest Android Studio
+- Android NDK Installed
 - Gradle 8.9
 - Git
 
