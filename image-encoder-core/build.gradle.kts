@@ -1,5 +1,5 @@
 plugins {
-    `java-library`
+    id("java-library")
 }
 
 java {
@@ -8,10 +8,7 @@ java {
 }
 
 dependencies {
-    // Dependencies for encoding logic here
-    // For the prototype this is empty
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+    implementation("org.bytedeco:javacv-platform:1.5.9")
+    implementation("org.slf4j:slf4j-api:1.7.32")
+    implementation("org.slf4j:slf4j-simple:1.7.32")
 }

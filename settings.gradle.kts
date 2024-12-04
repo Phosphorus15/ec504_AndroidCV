@@ -11,11 +11,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
-rootProject.name = "ec504_AndroidCV"
 
-// Include all existing and new modules
-include("app")
-include("image-encoder-cli")
-include("image-encoder-core")
+rootProject.name = "ec504_AndroidCV"
+include(":app")
+include(":image-encoder-core")
+include(":image-encoder-cli")
