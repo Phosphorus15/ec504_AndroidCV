@@ -56,6 +56,8 @@ public class ImageEncoder {
                 // Convert to FFmpeg frame and record
                 recorder.record(converter.convert(resizedImage));
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
             // Stop and release the recorder
             recorder.stop();
