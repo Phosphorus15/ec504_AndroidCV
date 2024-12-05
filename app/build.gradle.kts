@@ -34,11 +34,10 @@ android {
             )
         }
     }
-
     packaging {
         resources {
+            pickFirsts += "META-INF/native-image/ios-x86_64/jnijavacpp/reflect-config.json"
             excludes += listOf(
-                "/META-INF/{AL2.0,LGPL2.1}",
                 "META-INF/DEPENDENCIES",
                 "META-INF/LICENSE",
                 "META-INF/LICENSE.txt",
@@ -46,8 +45,7 @@ android {
                 "META-INF/NOTICE.txt",
                 "META-INF/*.kotlin_module",
                 "META-INF/native-image/**",
-                "META-INF/native/**",
-                "META-INF/INDEX.LIST"
+                "META-INF/native/**"
             )
         }
         jniLibs {
@@ -67,8 +65,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
@@ -85,8 +83,9 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
-    // Video encoding dependencies
+    implementation("org.bytedeco:ffmpeg:6.0-1.5.9:android-arm64")
+    implementation("org.bytedeco:javacpp:1.5.9:android-arm64")
+     // Video encoding dependencies
     implementation("org.bytedeco:javacv:1.5.9")
     implementation("org.bytedeco:javacv-platform:1.5.9")
     implementation("org.bytedeco:ffmpeg:6.0-1.5.9")
