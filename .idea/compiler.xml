@@ -8,20 +8,17 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/info.picocli/picocli-codegen/4.7.4/c6b2455e97f9bb08eb0b8067ab8b65f290de2186/picocli-codegen-4.7.4.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/4.7.4/6c036f65c4534c87c4b7f47ed659ee625bee79d4/picocli-4.7.4.jar" />
         </processorPath>
-        <module name="ec504_AndroidCV.image-encoder-cli.main" />
-      </profile>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <option name="project" value="ec504_AndroidCV/image-encoder-cli" />
-        <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/info.picocli/picocli-codegen/4.7.4/c6b2455e97f9bb08eb0b8067ab8b65f290de2186/picocli-codegen-4.7.4.jar" />
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/4.7.4/6c036f65c4534c87c4b7f47ed659ee625bee79d4/picocli-4.7.4.jar" />
-        </processorPath>
-        <module name="Desktop.ec504_AndroidCV.image-encoder-cli.main" />
+        <module name="AndroidVideoEncoder.image-encoder-cli.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="AndroidVideoEncoder.app" target="17" />
+      <module name="AndroidVideoEncoder.image-encoder-cli" target="11" />
+      <module name="AndroidVideoEncoder.image-encoder-cli.main" target="11" />
+      <module name="AndroidVideoEncoder.image-encoder-cli.test" target="11" />
+      <module name="AndroidVideoEncoder.image-encoder-core" target="11" />
+      <module name="AndroidVideoEncoder.image-encoder-core.main" target="11" />
+      <module name="AndroidVideoEncoder.image-encoder-core.test" target="11" />
       <module name="Desktop.ec504_AndroidCV.image-encoder-cli.main" target="11" />
       <module name="ec504_AndroidCV.app" target="17" />
       <module name="ec504_AndroidCV.image-encoder-cli" target="11" />

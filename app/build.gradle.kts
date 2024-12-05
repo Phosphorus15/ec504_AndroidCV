@@ -17,7 +17,7 @@ android {
         multiDexEnabled = true
 
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            abiFilters += listOf("arm64-v8a", "x86_64")
         }
     }
 
@@ -34,6 +34,7 @@ android {
             )
         }
     }
+
     packaging {
         resources {
             pickFirsts += "META-INF/native-image/ios-x86_64/jnijavacpp/reflect-config.json"
@@ -45,7 +46,8 @@ android {
                 "META-INF/NOTICE.txt",
                 "META-INF/*.kotlin_module",
                 "META-INF/native-image/**",
-                "META-INF/native/**"
+                "META-INF/native/**",
+                "META-INF/INDEX.LIST"
             )
         }
         jniLibs {
@@ -58,8 +60,8 @@ android {
                 "**/libjniavdevice.so",
                 "**/libjniswresample.so",
                 "**/libjniswscale.so",
-                "**/libjniopencv_*.so",
-                "**/libjnijavacpp.so"
+                "libpostproc.so",
+                "libjnipostproc.so"
             )
         }
     }
@@ -70,32 +72,24 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
 dependencies {
     implementation(project(":image-encoder-core"))
 
-    // Android core dependencies
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("org.bytedeco:ffmpeg:6.0-1.5.9:android-arm64")
-    implementation("org.bytedeco:javacpp:1.5.9:android-arm64")
-     // Video encoding dependencies
+
     implementation("org.bytedeco:javacv:1.5.9")
-    implementation("org.bytedeco:javacv-platform:1.5.9")
-    implementation("org.bytedeco:ffmpeg:6.0-1.5.9")
-    implementation("org.bytedeco:ffmpeg-platform:6.0-1.5.9")
+    implementation("org.bytedeco:ffmpeg:6.0-1.5.9:android-arm64") {
+        exclude(group = "org.bytedeco", module = "javacpp")
+    }
+    implementation("org.bytedeco:javacpp:1.5.9:android-arm64")
 
-    // MultiDex support
     implementation("androidx.multidex:multidex:2.0.1")
-
-    // Testing
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
