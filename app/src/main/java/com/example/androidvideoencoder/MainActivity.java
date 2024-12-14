@@ -16,6 +16,7 @@ import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -56,13 +57,15 @@ public class MainActivity extends AppCompatActivity {
     private void initializeViews() {
         videoView = findViewById(R.id.video_view);
         videoListView = findViewById(R.id.video_list_view);
-        progressBar = findViewById(R.id.progress_bar);
+//        progressBar = findViewById(R.id.progress_bar);
 
         findViewById(R.id.select_images_button).setOnClickListener(v -> checkPermissionsAndSelectImages());
         findViewById(R.id.encode_button).setOnClickListener(v -> startEncoding());
         findViewById(R.id.load_videos_button).setOnClickListener(v -> loadVideosFromDirectory());
 
-        progressBar.setVisibility(ProgressBar.GONE);
+        Log.e("TEST", String.valueOf(findViewById(R.id.encode_button).hasOnClickListeners()));
+
+//        progressBar.setVisibility(ProgressBar.GONE);
     }
 
     private void checkPermissionsAndSelectImages() {
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        progressBar.setVisibility(ProgressBar.VISIBLE);
+//        progressBar.setVisibility(ProgressBar.VISIBLE);
         executorService.execute(() -> {
             try {
                 File inputDir = new File(getFilesDir(), "input_images");
@@ -127,18 +130,21 @@ public class MainActivity extends AppCompatActivity {
                     copyUriToFile(uri, destFile);
                 }
 
-                // Simulated encoding logic (replace with real encoder)
-                Thread.sleep(2000);  // Simulate encoding time
+                AndroidImageEncoder encoder = new AndroidImageEncoder(progress ->
+                        runOnUiThread(() -> {
+                        })
+                );
+                encoder.encodeImages(inputDir.getAbsolutePath(), outputFile.getAbsolutePath(), "mp4", 80);
 
                 runOnUiThread(() -> {
-                    progressBar.setVisibility(ProgressBar.GONE);
+//                    progressBar.setVisibility(ProgressBar.GONE);
                     currentVideoUri = Uri.fromFile(outputFile);
-                    playVideo(currentVideoUri);
-                    Toast.makeText(this, "Video encoding complete!", Toast.LENGTH_SHORT).show();
+//                    playVideo(currentVideoUri);
+                    Toast.makeText(this, "Video encoded to " + outputFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 });
             } catch (Exception e) {
                 runOnUiThread(() -> {
-                    progressBar.setVisibility(ProgressBar.GONE);
+//                    progressBar.setVisibility(ProgressBar.GONE);
                     Toast.makeText(this, "Encoding failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
             }
@@ -149,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
         videoFiles.clear();
         File directory = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES), "AndroidVideoEncoder");
+        Log.e("DIR", directory.getAbsolutePath());
+
+        if (!directory.exists()) directory.mkdirs();
 
         if (!directory.exists() || !directory.isDirectory()) {
             Toast.makeText(this, "No videos found.", Toast.LENGTH_SHORT).show();
@@ -163,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getFileNames(videoFiles));
             videoListView.setAdapter(adapter);
             videoListView.setOnItemClickListener((parent, view, position, id) -> playVideo(Uri.fromFile(videoFiles.get(position))));
+
         } else {
             Toast.makeText(this, "No videos found.", Toast.LENGTH_SHORT).show();
         }
@@ -177,18 +187,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void playVideo(Uri videoUri) {
-        videoView.setVideoURI(videoUri);
-        MediaController mediaController = new MediaController(this);
-        mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);
+        if (videoUri == null) {
+            Toast.makeText(this, "Invalid video URI.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        videoView.setOnPreparedListener(mp -> videoView.start());
-        videoView.setOnCompletionListener(mp -> Toast.makeText(this, "Playback complete.", Toast.LENGTH_SHORT).show());
-        videoView.setOnErrorListener((mp, what, extra) -> {
-            Toast.makeText(this, "Playback error.", Toast.LENGTH_SHORT).show();
-            return true;
+        videoView.setVideoURI(videoUri);
+
+//        MediaController mediaController = new MediaController(this);
+//        mediaController.setAnchorView(videoView);
+//        videoView.setMediaController(mediaController);
+
+        // Set listeners
+        videoView.setOnPreparedListener(mp -> {
+            videoView.start();
+            Toast.makeText(this, "Playback started.", Toast.LENGTH_SHORT).show();
         });
+
+        videoView.setOnCompletionListener(mp -> {
+            Toast.makeText(this, "Playback complete.", Toast.LENGTH_SHORT).show();
+        });
+
+        videoView.setOnErrorListener((mp, what, extra) -> {
+            Toast.makeText(this, "Playback error: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
+            return true; // Return true to indicate we handled the error.
+        });
+
+        // Start the video
+        videoView.requestFocus(); // Ensure the VideoView gets focus.
+
+        videoView.start();
     }
+
 
     private File createOutputVideoFile() throws IOException {
         File outputDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "AndroidVideoEncoder");
