@@ -1,5 +1,7 @@
 package com.example.image_encoder_cli;
 
+import com.example.Encoder;
+
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -21,8 +23,8 @@ public class ImageEncoderCLI implements Callable<Integer> {
     @Option(names = {"-o", "--output"}, description = "Output video file path", required = true)
     private File outputFile;
 
-    @Option(names = {"-f", "--format"}, description = "Output video format (e.g., mp4, avi)", defaultValue = "mp4")
-    private String format;
+    @Option(names = {"-b", "--bitstream"}, description = "Paths to store bitstream", required = true)
+    private File bitstreamDir;
 
     @Option(names = {"-q", "--quality"}, description = "Video quality (1-100)", defaultValue = "80")
     private int quality;
@@ -31,8 +33,10 @@ public class ImageEncoderCLI implements Callable<Integer> {
     public Integer call() {
         try {
             // Use the CLI-specific encoder
-            CLIImageEncoder encoder = new CLIImageEncoder();
-            encoder.encodeImages(inputDir.getAbsolutePath(), outputFile.getAbsolutePath(), format, quality);
+//            CLIImageEncoder encoder = new CLIImageEncoder();
+//            encoder.encodeImages(inputDir.getAbsolutePath(), outputFile.getAbsolutePath(), format, quality);
+
+            Encoder.mpegEncodeProcedure(inputDir.getAbsolutePath(), bitstreamDir.getAbsolutePath(), outputFile.getAbsolutePath(), quality);
 
             System.out.println("Video saved to: " + outputFile.getAbsolutePath());
             return 0; // Success

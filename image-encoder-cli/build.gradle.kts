@@ -11,6 +11,13 @@ java {
 
 application {
     mainClass.set("com.example.image_encoder_cli.ImageEncoderCLI")
+
+    val codecDir = "${projectDir}/libs/codec"
+    println("Setting java.library.path to: $codecDir")
+
+    applicationDefaultJvmArgs += listOf(
+        "-Djava.library.path=$codecDir"
+    )
 }
 
 dependencies {
