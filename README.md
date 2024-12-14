@@ -125,7 +125,7 @@ From Terminal
    image-encoder-cli/build/libs/image-encoder-cli-1.0.0.jar
    ```
 4. 
-  **Note: this is just a demo jar file and core encoding logic is not yet integrated, So you can only run the command below to confirm jar file works.**
+  **Note: This jar file does not ship with the native library counterpart, so you have to put the native library in appropriate places (e.g. `libencoder_jni.dylib` to `/usr/lib/java`) for the CLI to work.**
 **To see help information**:
    ```
    java -jar image-encoder-cli-1.0.0.jar --help
