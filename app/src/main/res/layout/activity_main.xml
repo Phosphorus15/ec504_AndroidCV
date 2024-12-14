@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp" />
 
     <!-- Encode Video Button -->
     <Button
@@ -33,7 +33,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-        android:enabled="false"/>
+        android:enabled="false" />
+
+    <!-- Load Videos Button -->
+    <Button
+        android:id="@+id/load_videos_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/load_videos"
+        android:backgroundTint="@color/colorBlue"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/encode_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
 
     <!-- Progress Bar -->
     <ProgressBar
@@ -43,88 +56,33 @@
         android:layout_height="wrap_content"
         android:progressTint="@color/colorYellow"
         android:max="100"
-        app:layout_constraintTop_toBottomOf="@id/encode_button"
+        app:layout_constraintTop_toBottomOf="@id/load_videos_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-         android:visibility="gone"/>
+        android:visibility="gone" />
 
     <!-- Video View -->
     <VideoView
         android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="16dp"
+        android:background="#000000"
+        android:keepScreenOn="true"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ListView for video files -->
+    <ListView
+        android:id="@+id/video_list_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorBlue"
         app:layout_constraintTop_toBottomOf="@id/progress_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/controls_layout"
-        android:layout_margin="16dp"/>
-
-    <!-- Controls Layout (Play, Pause, Stop) -->
-    <LinearLayout
-        android:id="@+id/controls_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Play Button -->
-        <Button
-            android:id="@+id/play_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/play"
-            android:backgroundTint="@color/colorGreen"
-            android:textColor="@color/white"
-            android:layout_margin="8dp"
-            android:enabled="false"
-            style="?android:attr/buttonBarButtonStyle" />
-
-        <!-- Pause Button -->
-        <Button
-            android:id="@+id/pause_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/pause"
-            android:backgroundTint="@color/colorYellow"
-            android:textColor="@color/black"
-            android:layout_margin="8dp"
-            android:enabled="false"
-            style="?android:attr/buttonBarButtonStyle" />
-
-        <!-- Stop Button -->
-        <Button
-            android:id="@+id/stop_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/stop"
-            android:backgroundTint="@color/colorRed"
-            android:textColor="@color/white"
-            android:layout_margin="8dp"
-            android:enabled="false"
-            style="?android:attr/buttonBarButtonStyle" />
-    </LinearLayout>
-
-    <!-- app/src/main/res/layout/activity_main.xml -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/nav_item_color"
-        app:itemTextColor="@color/nav_item_text_color_white"
-        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_margin="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

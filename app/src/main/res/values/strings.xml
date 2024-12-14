@@ -4,6 +4,7 @@
     <string name="welcome_message">ImageEncoder</string>
     <string name="select_images">Select Images (Max 100)</string>
     <string name="encode_video">Encode to MPEG-1 Video</string>
+    <string name="load_videos">Load Videos</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
