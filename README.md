@@ -117,6 +117,8 @@ From Terminal
      gradlew.bat :image-encoder-cli:shadowJar --rerun-tasks --info
      ```
 
+   **Note** that we only provided pre-built `libencoder_jni` for x64 Linux or ARM macOS. If you want to run the CLI on Windows you'll need to go to the native library [Repository](https://github.com/eburhansjah/ec504_ImageEncoder) and build the native `.dll` library following the guide and put it in the root folder of this project.
+
 3. **Locate the Generated JAR**:
    After the build, the fat JAR will be located at:
    ```
